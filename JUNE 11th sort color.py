@@ -23,3 +23,7 @@ class Solution:
             else:
                 nums[white], nums[blue] = nums[blue], nums[white]
                 blue -= 1
+#the logic of this solution
+#if found a red, switch it with a red
+#if found a white, do nothing
+# if found a blue, put it to the end of the queue
