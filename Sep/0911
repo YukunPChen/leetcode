@@ -13,3 +13,17 @@ class Solution:
                     maxvalue = q
 
         return maxvalue
+
+
+#better answer:
+
+
+class Solution:
+    def maxProduct(self, nums: List[int]) -> int:
+        dpMax = dpMin = nums[0]
+        res = nums[0]
+        for i in range(1, len(nums)):
+            dpMax, dpMin = max(nums[i], dpMax * nums[i], dpMin * nums[i]), min(nums[i], dpMax * nums[i], dpMin * nums[i])
+            res = max(res, dpMax)
+            # print(dpMax, dpMin)
+        return res
