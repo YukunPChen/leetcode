@@ -1,0 +1,23 @@
+class Solution:
+    def insert(self, intervals, newInterval):
+        newIntervals = []
+        if len(intervals) == 0:
+            newIntervals.append(newInterval)
+        for i in range(len(intervals)):
+            # 如果新区间的结束值小于区间开始值，插在这里，后面续上
+            if newInterval[1] < intervals[i][0]:
+                newIntervals.append(newInterval)
+                for j in range(i,len(intervals)):
+                    newIntervals.append(intervals[j])
+                break
+            # 如果新区间的开始值大于区间结束值，把当前区间加进去
+            elif newInterval[0] > intervals[i][1]:
+                newIntervals.append(intervals[i]);
+            # 出现交叉，需要合并
+            else :
+                newInterval[0] = min(newInterval[0], intervals[i][0]);
+                newInterval[1] = max(newInterval[1], intervals[i][1]);
+            # 最后只剩一个数据了，添加进去
+            if i == len(intervals) - 1:
+                newIntervals.append(newInterval)
+        return newIntervals
