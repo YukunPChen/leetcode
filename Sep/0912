@@ -1,0 +1,21 @@
+def combinationSum3(k: int, n: int):
+    output=[]
+    def dfs(depth,cur,start):
+        print('the sum is',n,'current array',cur,'start value',start,'difference',depth)
+        nonlocal output
+        if n-sum(cur)<sum([i for i in range(start,start+depth)]):
+            print('fit first situation')
+            print("n-sum(cur)<sum([i for i in range(start,start+depth)])")
+            return
+        if depth==1 and start<=n-sum(cur)<10:
+            output.append(cur+[n-sum(cur)])
+            print('fit seconds situation')
+            print('depth==1 and start<=n-sum(cur)<10')
+            return
+        for i in range(start,10):
+            print('fit third situation')
+            dfs(depth-1,cur+[i],i+1)
+            
+
+    dfs(k,[],1)
+    return output
