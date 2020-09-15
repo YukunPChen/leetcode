@@ -1,0 +1,12 @@
+class Solution:
+	def rob(self, nums: List[int]) -> int:
+		if len(nums) == 0:
+			return 0 # no house, no outcome
+		elif len(nums) == 1:
+			return nums[0] # one house, focus on what we have
+		else:
+			robs = [0] * len(nums) # assign and initialize robs array
+			robs[0], robs[1] = nums[0], max(nums[:2]) # second essential
+			for i in range(2, len(nums)):
+				robs[i] = max(robs[i-1], robs[i-2]+nums[i]) # applying sequence
+			return robs[-1] 
