@@ -1,0 +1,26 @@
+class Solution:
+    def isRobotBounded(self, instructions: str) -> bool:
+        instructions = instructions*4
+        x= 0 
+        y =0
+        angel = 3
+        angellist = [(-1,0),(0,-1),(1,0),[0,1]]
+        
+        for move in instructions:
+            print(move,angel)
+            if  move == 'G':
+                x += angellist[angel][0]*1
+                y += angellist[angel][1]*1
+            if  move == 'L':
+                angel += 1
+                if angel> 3:
+                    angel = 0
+            if  move == 'R':
+                angel -= 1
+                if angel<0:
+                    angel = 3               
+                
+            print(x,y,angel)
+            
+        if (x,y) == (0,0):
+            return True
