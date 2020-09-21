@@ -1,0 +1,16 @@
+class Solution:
+    def sequentialDigits(self, low: int, high: int) -> List[int]:
+        low_digits = int(log10(low))+1
+        high_digits = int(log10(high)) + 1
+        all_digits = [str(i) for i in range(10)]
+        res = []
+
+        for digits in range(low_digits, high_digits+1):
+            if digits > low_digits:
+                tmp = [int(''.join(all_digits[i:i+digits])) for i in range(1, 11-digits)]
+                res.extend([*filter(lambda x: low <= x <= high, tmp)])
+            else: # digits == low_digits
+                tmp = [int(''.join(all_digits[i:i+digits])) for i in range(11-digits)]
+                res.extend([*filter(lambda x: low <= x <= high, tmp)])
+
+        return res
