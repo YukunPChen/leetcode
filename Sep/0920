@@ -1,0 +1,47 @@
+class Solution:
+    def uniquePathsIII(self, grid: List[List[int]]) -> int:
+        width = len(grid)
+        length = len(grid[0])
+        
+        sx,sy,ex,ey = 0,0,0,0
+        
+        avai = 0
+        
+        for x,col in enumerate(grid):
+            for y,value in enumerate(col):
+                if value  == 1:
+                    sx,sy = x,y
+                if value == 2:
+                    ex,ey = x,y
+                    
+                if value != -1:
+                    avai +=1
+                    
+        vis = [ [False]*length for _ in range(width)]
+        vis[sx][sy] =  True
+        mv = ((1,0),(-1,0),(0,1),(0,-1))
+        ans = 0
+        
+        
+        def legal(x,y):
+            return -1<x<width and -1<y<length and grid[x][y]!= -1 and not vis[x][y]
+        
+        def dfs(x,y,curr_avai):
+            nonlocal ans,avai     
+            if x ==ex and y == ey:
+                if curr_avai == avai:
+                    ans+= 1
+                return
+            
+            for dx,dy in mv:
+                nx = x+dx
+                ny = y+dy
+                if legal(nx,ny):
+                    vis[nx][ny] =  True
+                    dfs(nx,ny,curr_avai+1)
+                    vis[nx][ny] =  False
+        
+        
+        dfs(sx,sy,1)
+        
+        return ans
