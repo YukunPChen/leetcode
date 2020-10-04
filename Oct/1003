@@ -1,0 +1,55 @@
+Solution first:
+class Solution:
+    def findPairs(self, nums: List[int], k: int) -> int:
+        results = []
+        for i in range(len(nums)):
+            for j in range(i+1,len(nums)):
+                if nums[i]- nums[j] == k or nums[i]- nums[j] == -k:
+                    
+                    z = [nums[i],nums[j]]
+                    z.sort()
+                    if z not in results:
+                        results.append(z)
+                    #print(i,j)
+                    
+        return len(results)
+        
+        
+Better solution:
+class Solution:
+    def findPairs(self, nums: List[int], k: int) -> int:
+        pairs = 0
+        
+        if k == 0:
+            return len([n for n, count in collections.Counter(nums).items() if count > 1])
+        
+        snums = set(nums)
+        pairs += len([n for n in snums if n - k in snums])
+            
+        return pairs
+        
+        
+        
+ Better Better solution:
+ 
+
+
+class Solution:
+    def findPairs(self, nums, k):
+        
+        if k < 0:
+            return 0
+        
+        res = 0
+        dict = Counter(nums)
+
+        for i in dict:
+            if k == 0:
+                if dict[i] > 1:
+                    res += 1
+                    
+            elif i+k in dict:
+                res += 1
+                
+        return res
+
